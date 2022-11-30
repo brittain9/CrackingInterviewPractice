@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "permutation", "permutation\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fibonacci", "Fibonacci\Fibonacci.vcxproj", "{95BD9C94-678C-42D5-8612-CE82DB34516A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "powersOf2", "powersOf2\powersOf2.vcxproj", "{A61A499D-7E0C-479F-89F5-3545AFF2A755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{95BD9C94-678C-42D5-8612-CE82DB34516A}.Release|x64.Build.0 = Release|x64
 		{95BD9C94-678C-42D5-8612-CE82DB34516A}.Release|x86.ActiveCfg = Release|Win32
 		{95BD9C94-678C-42D5-8612-CE82DB34516A}.Release|x86.Build.0 = Release|Win32
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Debug|x64.ActiveCfg = Debug|x64
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Debug|x64.Build.0 = Debug|x64
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Debug|x86.ActiveCfg = Debug|Win32
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Debug|x86.Build.0 = Debug|Win32
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Release|x64.ActiveCfg = Release|x64
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Release|x64.Build.0 = Release|x64
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Release|x86.ActiveCfg = Release|Win32
+		{A61A499D-7E0C-479F-89F5-3545AFF2A755}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
