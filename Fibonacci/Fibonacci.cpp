@@ -1,12 +1,10 @@
 #include <iostream>
-
+#include <vector>
+using std::vector;
 /*
  * Chapter VI Big O - Example 13 (calculate single fib number) and Example 14 (Printing all Fib numbers)
  * We can use the pattern established earlier for recursive calls O(branches ^ depth)
  */
-
-
-
 
 int fib(int n)
 {
@@ -43,7 +41,44 @@ void allFib(int n)
 	 */
 }
 
+/*
+ * Example 15: Let's cache the previously computed values in an array. If the number has been computed, just return the cache. What is runtime now?
+ * I got quite a bit carried away tinking with this caching code to make it work correctly in C++. This is my solution to cache probably a better way
+ * Messed around in debugger and memory view to see the array caching the values as you step through. One thing I miss about C++ is looking through the memory and assembly code created. But in c#, I can basically look at decompile the source code almost perfect compared to even the most complex recursive descent algorithms used by PE decompilers like Ida Pro.
+ */
+
+int fibCache(int n, vector<int>* memo)
+{
+	if (n <= 0) return 0;
+	if (n == 1) return 1;
+	try
+	{
+		if (memo->at(n - 2) > 0)
+			return memo->at(n - 2); // subtract two because caching starts at number 2
+	}
+	catch(std::exception e)
+	{
+		// The at method of std::vector class checks whether n is out of bounds. If so exception is thrown.
+		// Catch the exception and continue.
+		std::cerr << e.what() <<  " | Caching: ";
+	}
+
+	memo->push_back(fibCache(n - 1, memo) + fibCache(n - 2, memo)) ;
+	return memo->back();
+}
+
+void allFibCache(int n)
+{
+	vector<int> memo;
+	for(int i = 0; i < n; i++)
+	{
+		printf("%i: %i\n", i, fibCache(i, &memo));
+	}
+}
+
+
+
 int main()
 {
-	allFib(17);
+	allFibCache(23);
 }
