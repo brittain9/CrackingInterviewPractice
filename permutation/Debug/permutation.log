@@ -1,0 +1,4 @@
+﻿  permutation.cpp
+C:\Users\alex\source\repos\CrackingInterviewCode\permutation\permutation.cpp(26,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\alex\source\repos\CrackingInterviewCode\permutation\permutation.cpp(53,108): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  permutation.vcxproj -> C:\Users\alex\source\repos\CrackingInterviewCode\Debug\permutation.exe
