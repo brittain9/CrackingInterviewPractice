@@ -1,9 +1,12 @@
 #include <iostream>
 
 /*
- * Chapter VI Big O - Example 13
+ * Chapter VI Big O - Example 13 (calculate single fib number) and Example 14 (Printing all Fib numbers)
  * We can use the pattern established earlier for recursive calls O(branches ^ depth)
  */
+
+
+
 
 int fib(int n)
 {
@@ -17,7 +20,30 @@ int fib(int n)
 	// Generally algos with multiple recursive calls, expect exponential runtime.
 }
 
+void allFib(int n)
+{
+	// What is the time complexity?
+	// My initial thoughts: runtime is going to be O(n) to print the numbers
+	for (int i{ 0 }; i <= n; i++)
+	{
+		printf("%i ", fib(i)); // the call to calculate the Fibonacci number is still O(2 ^ n)
+	}
+
+	// Therefore, the runtime would be O(n) * O(2 ^ n) == O(n * 2 ^ n). Can we drop n?
+	// This was my rushed conclusion, and the book specifically says it's a common mistake
+
+	// The error in this logic is that n is changing. fib(n) takes O(2^n) time, but it depends what the value of n is.
+	/* Let's walk through calls:
+	 * fib(1) -> 2^1 steps
+	 * fib(2) -> 2^2 steps
+	 * fib(n) -> 2^n steps
+	 * Therefore, total work = 2^1 + 2^2 + 2^3 + ... + 2^n
+	 * Refer to pg 45. This is a 2^(n+1) - 2 algo.
+	 * Therefore, runtime for this (horrible) algo is still O(2^n)
+	 */
+}
+
 int main()
 {
-	printf("%i", fib(17));
+	allFib(17);
 }
