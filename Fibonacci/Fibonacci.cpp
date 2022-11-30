@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
+
+#include "timer.h"
+
 using std::vector;
+
 /*
  * Chapter VI Big O - Example 13 (calculate single fib number) and Example 14 (Printing all Fib numbers)
  * We can use the pattern established earlier for recursive calls O(branches ^ depth)
@@ -43,8 +47,10 @@ void allFib(int n)
 
 /*
  * Example 15: Let's cache the previously computed values in an array. If the number has been computed, just return the cache. What is runtime now?
+ *
  * I got quite a bit carried away tinking with this caching code to make it work correctly in C++. This is my solution to cache probably a better way
- * Messed around in debugger and memory view to see the array caching the values as you step through. One thing I miss about C++ is looking through the memory and assembly code created. But in c#, I can basically look at decompile the source code almost perfect compared to even the most complex recursive descent algorithms used by PE decompilers like Ida Pro.
+ * Messed around in debugger and memory view to see the array caching the values as you step through. One thing I miss about C++ is looking through the memory
+ * and assembly code created. But in C#, I can basically look at source code in decompiler almost perfectly compared to even the most complex recursive descent algorithms used by PE decompilers like HexRays decompiler.
  */
 
 int fibCache(int n, vector<int>* memo)
@@ -53,14 +59,12 @@ int fibCache(int n, vector<int>* memo)
 	if (n == 1) return 1;
 	try
 	{
-		if (memo->at(n - 2) > 0)
+		if (memo->at(n - 2) > 0) // at method of std::vector class checks whether n is out of bounds. If so exception is thrown.
 			return memo->at(n - 2); // subtract two because caching starts at number 2
 	}
 	catch(std::exception e)
 	{
-		// The at method of std::vector class checks whether n is out of bounds. If so exception is thrown.
-		// Catch the exception and continue.
-		std::cerr << e.what() <<  " | Caching: ";
+		//std::cerr << e.what() <<  " | Caching: ";
 	}
 
 	memo->push_back(fibCache(n - 1, memo) + fibCache(n - 2, memo)) ;
@@ -76,9 +80,37 @@ void allFibCache(int n)
 	}
 }
 
-
+/* What is this algo doing?
+ * fib(2)
+ *		fib(1) -> return 1
+ *		fib(0) -> return 0
+ *		store 1 at memo[0]
+ * fib(3)
+ *		fib(2) -> lookup memo[0] -> return 1
+ *		fib(1) -> return 1
+ *		store 2 at memo[1]
+ * fib(4)
+ *		fib(3) -> lookup memo[1] -> return 2
+ *		fib(2) -> lookup memo[0] -> return 1
+ *		store 5 at memo[2]
+ * ...
+ * at each call to fib(i), we have computed the previous two values fib(i -1) and fib(i - 2)
+ * We now just need to look up values, store them, and return. This takes constant time.
+ *
+ * RUNTIME: O(n). Technique used is called MEMOIZATION. It is commonly used to optimize exponential time recursive algorithms
+ */
 
 int main()
 {
-	allFibCache(23);
+	// This expresses the runtime difference very well. You can see that the O(n^2) when n is low is faster than all the storing that must be done. When you scale the input up, you quickly see the HUGE difference in runtime. Not caching will take my computer several seconds to compute the 80th Fib num. Caching does it in milliseconds. Major integer overflow issue
+	Timer t;
+	allFibCache(80);
+	double CacheTime = t.elapsed();
+	t.reset();
+	allFib(80);
+	std::cout << "Cache time: " << CacheTime << "\nNo cache time: " << t.elapsed();
+	// on my computer:
+	// Cache time: 0.13 seconds @ n = 80
+	// No Cache time: 7.81 seconds @ n = 40
+
 }
