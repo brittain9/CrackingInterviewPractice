@@ -1,21 +1,11 @@
-#include <iostream>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 
-using std::string;
-/*
-Check if each char in a string is unique.
-Brute force solution has space complexity of O(N) or O(1) because we don't create new data structures. Runtime: O(N^2)
-
-Could also implement a hash table solution with faster runtime.
-*/
-
-bool IsUniqueHash(string str){
-    // Complexity directly from cppreference
+bool IsUniqueHash(std::string str){
+    // Hash set implementation - O(N) Runtime
     std::unordered_set<char> set;
 
-    for(int i = 0; i < str.length(); i++) {
+    for(int i = 0; i < str.length() - 1; i++) {
         // This should be O(1), worst case O(N) - linear.
         if(set.contains(str[i])){
             return false;
@@ -28,10 +18,10 @@ bool IsUniqueHash(string str){
     return true;
 }
 
-bool IsUnique(string str){
-    // Brute force solution - O(N^2)
-    for(int i = 0; i < str.size(); i++){
-        for(int j = 0; j < str.size(); j++){
+bool IsUnique(std::string str){
+    // Brute force solution (No new data structures), Runtime: O(N^2)
+    for(int i = 0; i < str.size() - 1; i++){
+        for(int j = 0; j < str.size() - 1; j++){
             if(i == j) continue;
             if(str[i] == str[j]){
                 return false;
@@ -42,10 +32,6 @@ bool IsUnique(string str){
 }
 
 int main(){
-    string str = "abc";
-    bool unique = 0;
-    unique = IsUniqueHash(str);
-    std::cout << "Is String Unique? " << unique << std::endl;
-
-    return 0;
+    printf("Is string unique? %b\n", IsUniqueHash("abc"));
+    printf("Is string unique? %b\n", IsUnique("aab"));
 }
